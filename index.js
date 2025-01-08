@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const choiceNumber = Math.floor(Math.random() * 3);
     return ['rock', 'paper', 'scissors'][choiceNumber];
@@ -25,3 +28,26 @@ function getHumanChoice() {
 
     return humanChoice;
 }
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        console.log('Tie!');
+    } else if (
+    humanChoice === 'rock' && computerChoice === 'scissors' ||
+    humanChoice === 'paper' && computerChoice === 'rock' ||
+    humanChoice === 'scissors' && computerChoice === 'paper'
+    ) {
+        humanScore += 1;
+        console.log('Human Win!');
+        return;
+    } else {
+        computerScore += 1;
+        console.log('computer Win!');
+        return;
+    }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
