@@ -27,16 +27,21 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
+    const TIE = 2;
+    const PLAYER_WIN = 0;
+    const COMPUTER_WIN = 1;
+
+
     if (humanChoice === computerChoice) {
-        return 2;
+        return TIE;
     } else if (
     humanChoice === 'rock' && computerChoice === 'scissors' ||
     humanChoice === 'paper' && computerChoice === 'rock' ||
     humanChoice === 'scissors' && computerChoice === 'paper'
     ) {
-        return 0;
+        return PLAYER_WIN;
     } else {
-        return 1;
+        return COMPUTER_WIN;
     }
 }
 
