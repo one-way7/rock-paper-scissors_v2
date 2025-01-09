@@ -31,14 +31,15 @@ function playRound(humanChoice, computerChoice) {
     const PLAYER_WIN = 0;
     const COMPUTER_WIN = 1;
 
+    const winningCombinations = {
+        rock: 'scissors',
+        paper: 'rock',
+        scissors: 'paper',
+    }
 
     if (humanChoice === computerChoice) {
         return TIE;
-    } else if (
-    humanChoice === 'rock' && computerChoice === 'scissors' ||
-    humanChoice === 'paper' && computerChoice === 'rock' ||
-    humanChoice === 'scissors' && computerChoice === 'paper'
-    ) {
+    } else if (winningCombinations[humanChoice] === computerChoice) {
         return PLAYER_WIN;
     } else {
         return COMPUTER_WIN;
