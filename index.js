@@ -5,7 +5,7 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let humanChoice = '';
-    let count = 0;
+    let isValidInput = false;
 
     do {
         humanChoice = prompt('What\'s your sign?').trim().toLowerCase();
@@ -21,7 +21,7 @@ function getHumanChoice() {
                 alert('Type correct input');
             }
         }
-    } while (count < 1);
+    } while (!isValidInput);
 
     return humanChoice;
 }
