@@ -47,11 +47,11 @@ function playGame() {
     for (let i = 0; i < 5; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
-        let winner;
+        let roundResult;
 
-        winner = playRound(humanSelection, computerSelection);
+        roundResult = playRound(humanSelection, computerSelection);
 
-        switch (winner) {
+        switch (roundResult) {
             case 0: {
                 humanScore += 1;
                 console.log(`Player Win! Player: ${humanScore}, Computer: ${computerScore}.`);
