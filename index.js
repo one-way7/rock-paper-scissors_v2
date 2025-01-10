@@ -1,29 +1,14 @@
+const selectionButtons = document.querySelectorAll('button');
+const resultDiv = document.querySelector('.results');
+
+let humanScore = 0;
+let computerScore = 0;
+
+selectionButtons.forEach(button => button.addEventListener('click', playGame));
+
 function getComputerChoice() {
     const choiceNumber = Math.floor(Math.random() * 3);
     return ['rock', 'paper', 'scissors'][choiceNumber];
-}
-
-function getHumanChoice() {
-    let humanChoice = '';
-    let isValidInput = false;
-
-    do {
-        humanChoice = prompt('What\'s your sign?').trim().toLowerCase();
-
-        switch (humanChoice) {
-            case 'rock':
-            case 'paper':
-            case 'scissors': {
-                count = 1;
-                break;
-            }
-            default: {
-                alert('Type correct input');
-            }
-        }
-    } while (!isValidInput);
-
-    return humanChoice;
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -46,40 +31,57 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+function checkWinner() {
+    if (humanScore > 4) {
+        updateResultMessage('PLAYER WIN THE GAME!')
+        resetGame();
+        return true;
+    }
 
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        let roundResult;
+    if (computerScore > 4) {
+        updateResultMessage('COMPUTER WIN THE GAME!')
+        resetGame();
+        return true;
+    }
 
-        roundResult = playRound(humanSelection, computerSelection);
+    return false;
+}
 
-        switch (roundResult) {
-            case 0: {
-                humanScore += 1;
-                console.log(`Player Win! Player: ${humanScore}, Computer: ${computerScore}.`);
-                break;
-            }
-            case 1: {
-                computerScore += 1;
-                console.log(`Computer Win! Player: ${humanScore}, Computer: ${computerScore}.`);
-                break;
-            }
-            case 2: {
-                console.log(`Tie! Player: ${humanScore}, Computer: ${computerScore}.`);
-                break;
-            }
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+}
+
+function updateResultMessage(message) {
+    resultDiv.textContent = message;
+}
+
+function playGame(e) {
+    const humanSelection = e.target.textContent;
+    const computerSelection = getComputerChoice();
+    let roundResult;
+
+    roundResult = playRound(humanSelection, computerSelection);
+
+    switch (roundResult) {
+        case 0: {
+            humanScore += 1;
+
+            if (checkWinner()) return;
+            updateResultMessage(`PLAYER WIN! Player Score: ${humanScore}. Computer Score: ${computerScore}`);
+            return;
+        }
+        case 1: {
+            computerScore += 1;
+
+            if (checkWinner()) return;
+            updateResultMessage(`COMPUTER WIN! Player Score: ${humanScore}. Computer Score: ${computerScore}`);
+            return;
+        }
+        case 2: {
+            updateResultMessage(`TIE! Player Score: ${humanScore}. Computer Score: ${computerScore}`);
+            return;
         }
     }
 
-    if (humanScore > computerScore) {
-        console.log('Human Win!');
-    } else if (computerScore > humanScore) {
-        console.log('Computer Win!');
-    } else {
-        console.log('Tie!');
-    }
 }
